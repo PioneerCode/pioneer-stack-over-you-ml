@@ -1,4 +1,4 @@
-"""Stack Overflow  DNNClassifier for the 2017 developer survey dataset."""
+"""Repository servicing Stack Overflow 2017 developer survey dataset."""
 import pandas as pd
 
 RESULTS_PATH = 'data/2017-results.csv'
@@ -35,4 +35,4 @@ def load_data(label_name='DeveloperType'):
     return (results_features, results_label)
 
 
-print(load_data())
+
