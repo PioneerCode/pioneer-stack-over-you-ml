@@ -4,7 +4,6 @@ import stack_data
 
 def main():
     """Entry"""
-
     # Fetch the data
     (train_feature, train_label), (test_feature, test_label) = stack_data.get_test_train_data()
     print("Training Features Shape: {0}".format(train_feature.shape))
