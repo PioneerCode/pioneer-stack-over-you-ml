@@ -1,5 +1,5 @@
 #
-#  Archived data comes from Stack Overflow
+#  Archived data (developer_survey_2017.zip) comes directly from Stack Overflow
 #  https://insights.stackoverflow.com/survey/?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2017&utm_content=blog-link&utm_term=data
 #  https://drive.google.com/uc?export=download&id=0B6ZlG_Eygdj-c1kzcmUxN05VUXM
 #
