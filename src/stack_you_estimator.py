@@ -8,7 +8,7 @@ def main():
 
     # Fetch the data
     (results_features, results_label) = stack_data.load_data()
-    print(results_features)
+    # print(results_label.head(3))
 
 
 main()
