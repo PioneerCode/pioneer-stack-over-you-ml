@@ -17,7 +17,7 @@ FEATURE_COLUMNS = [
 ]
 
 
-def load_data(label_name='DeveloperType'):
+def get_test_train_data(label_name='DeveloperType'):
     """Parses the csv file in RESULTS_PATH."""
 
     # Parse the local CSV file.
@@ -27,10 +27,23 @@ def load_data(label_name='DeveloperType'):
         header=0  # ignore the first row of the CSV file.
     )
 
+    (train, test) = split_data(results)
+
     # 1. Assign the DataFrame's labels (the right-most column) to results_label.
     # 2. Delete (pop) the labels from the DataFrame.
     # 3. Assign the remainder of the DataFrame to results_features
-    results_features, results_label = results.loc[:, FEATURE_COLUMNS], results.pop(
+    train_features, train_label = train.loc[:, FEATURE_COLUMNS], train.pop(
         label_name)
-    print(results_features.head(1))
-    return (results_features, results_label)
+
+    test_features, test_label = test.loc[:, FEATURE_COLUMNS], test.pop(
+        label_name)
+
+    return (train_features, train_label), (test_features, test_label)
+
+
+def split_data(data_frame):
+    """Split our results data in test and train"""
+
+    train = data_frame.sample(frac=0.8, random_state=200)
+    test = data_frame.drop(train.index)
+    return (train, test)
