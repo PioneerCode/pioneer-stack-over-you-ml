@@ -1,5 +1,5 @@
 # User
-src/data
+src/data/unpacked
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

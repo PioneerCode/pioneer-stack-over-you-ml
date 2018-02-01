@@ -1,9 +1,11 @@
 """Repository servicing Stack Overflow 2017 developer survey dataset."""
+import os
+import zipfile
 import pandas as pd
 
-
-RESULTS_PATH = 'data/2017-results.csv'
-SCHEMA_PATH = 'data/2017-schema.csv'
+ARCHIVE_PATH = 'data/developer_survey_2017.zip'
+RESULTS_PATH = 'data/unpacked/survey_results_public.csv'
+SCHEMA_PATH = 'data/unpacked/survey_results_schema.csv'
 
 FEATURE_COLUMNS = [
     'Professional',
@@ -19,6 +21,9 @@ FEATURE_COLUMNS = [
 
 def get_test_train_data(label_name='DeveloperType'):
     """Parses the csv file in RESULTS_PATH."""
+    
+    # Insure files are on disk
+    maybe_unzip()
 
     # Parse the local CSV file.
     results = pd.read_csv(
@@ -43,7 +48,22 @@ def get_test_train_data(label_name='DeveloperType'):
 
 def split_data(data_frame):
     """Split our results data in test and train"""
-
     train = data_frame.sample(frac=0.8, random_state=200)
     test = data_frame.drop(train.index)
     return (train, test)
+
+
+def maybe_unzip():
+    """Unpack Archive if not already unpacked"""
+    if do_files_exist is not True:
+        zip_ref = zipfile.ZipFile(ARCHIVE_PATH, 'r')
+        zip_ref.extractall('data/unpacked')
+        zip_ref.close()
+
+
+def do_files_exist():
+    """Check if files are on disk"""
+    if os.path.isfile(RESULTS_PATH):
+        return True
+
+    return False
