@@ -13,7 +13,6 @@ RESULTS_PATH = 'data/unpacked/survey_results_public.csv'
 SCHEMA_PATH = 'data/unpacked/survey_results_schema.csv'
 CLEAN_PATH = 'data/unpacked/cleaned_survey_results_public.csv'
 LABEL_NAME = 'DeveloperType'
-
 FEATURE_COLUMNS = [
     'Professional',
     'ProgramHobby',
@@ -35,6 +34,7 @@ def get_test_train_data():
 
     # Parse the local CSV file.
     results = get_dataframe_from_csv()
+    results.loc[:, FEATURE_COLUMNS].to_csv(CLEAN_PATH, index=False)
     (train, test) = split_data_into_test_train(results)
     return split_data_into_feature_label(train, test)
 
@@ -65,9 +65,9 @@ def split_data_into_test_train(data_frame):
 
 def split_data_into_feature_label(train, test):
     """Split train test data into feature label sets"""
-    # 1. Assign the DataFrame's labels (the right-most column) to results_label.
+    # 1. Assign the DataFrame's labels (the right-most column) to {}_label.
     # 2. Delete (pop) the labels from the DataFrame.
-    # 3. Assign the remainder of the DataFrame to results_features
+    # 3. Assign the remainder of the DataFrame to {}_features
     train_features, train_label = train.loc[:, FEATURE_COLUMNS], train.pop(
         LABEL_NAME)
 
