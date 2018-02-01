@@ -1,3 +1,8 @@
+#
+#  Archived data comes from Stack Overflow
+#  https://insights.stackoverflow.com/survey/?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2017&utm_content=blog-link&utm_term=data
+#  https://drive.google.com/uc?export=download&id=0B6ZlG_Eygdj-c1kzcmUxN05VUXM
+#
 """Repository servicing Stack Overflow 2017 developer survey dataset."""
 import os
 import zipfile
@@ -21,7 +26,7 @@ FEATURE_COLUMNS = [
 
 def get_test_train_data(label_name='DeveloperType'):
     """Parses the csv file in RESULTS_PATH."""
-    
+
     # Insure files are on disk
     maybe_unzip()
 
