@@ -15,9 +15,13 @@ LABEL_NAME = 'DeveloperType'
 
 def get_clean_data(raw_data):
     """Get clean dataframe"""
-    (train, test) = split_data_into_test_train(raw_data)
+    labeled_data = remove_unlabeled(raw_data)
+    (train, test) = split_data_into_test_train(labeled_data)
     return split_data_into_feature_label(train, test)
 
+def remove_unlabeled(raw_data):
+    """Remove all rows with no label values"""
+    return raw_data.dropna(subset=[LABEL_NAME], how='all')
 
 def split_data_into_test_train(data_frame):
     """Split our results data in test and train"""
