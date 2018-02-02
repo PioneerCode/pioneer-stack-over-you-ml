@@ -1,9 +1,17 @@
 {
     // Command Prompt
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-    "python.pythonPath": "C:\\Users\\vagrant\\Envs\\tensorflow\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\vagrant\\Envs\\tensorflow\\Scripts\\python.exe",
     // PowerShell
     // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
     // Bash on Ubuntu (on Windows)
     //"terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe"
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true
+    }
 }
