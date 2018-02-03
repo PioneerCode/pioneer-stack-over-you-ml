@@ -14,6 +14,7 @@ parser.add_argument('--batch_size', default=100, type=int, help='batch size')
 parser.add_argument('--train_steps', default=1000, type=int,
                     help='number of training steps')
 
+(train_x, train_y), (test_x, test_y) = None
 
 def main(argv):
     args = parser.parse_args(argv[1:])
