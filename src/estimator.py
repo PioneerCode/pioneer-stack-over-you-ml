@@ -25,10 +25,6 @@ def main(argv):
     print("Test Features Shape: {0}".format(test_x.shape))
     print("Test Label Shape: {0}".format(test_y.shape))
 
-    # Feature columns describe how to use the input.
-    my_feature_columns = []
-    for key in train_x.keys():
-
 
 if __name__ == '__main__':
     tf.logging.set_verbosity(tf.logging.INFO)

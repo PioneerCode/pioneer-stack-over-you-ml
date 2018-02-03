@@ -13,7 +13,7 @@ import tensorflow as tf
 ARCHIVE_PATH = 'data/developer_survey_2017.zip'
 RESULTS_PATH = 'data/unpacked/survey_results_public.csv'
 SCHEMA_PATH = 'data/unpacked/survey_results_schema.csv'
-CLEAN_PATH = 'data/unpacked/cleaned/cleaned_survey_results_public.csv'
+CLEAN_PATH = 'data/unpacked/cleaned_survey_results_public.csv'
 LABELS = ['Sentosa', 'Versicolor', 'Virginica']
 
 
