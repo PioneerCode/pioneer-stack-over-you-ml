@@ -20,12 +20,6 @@ def main(argv):
 
     # Fetch the stack_data
     (train_x, train_y), (test_x, test_y) = stack_data.get_test_train_data()
-    print("Training Features Shape: {0}".format(train_x.shape))
-    print("Training Label Shape: {0}".format(train_y.shape))
-    print("Test Features Shape: {0}".format(test_x.shape))
-    print("Test Label Shape: {0}".format(test_y.shape))
-    
-
 
 
 if __name__ == '__main__':
