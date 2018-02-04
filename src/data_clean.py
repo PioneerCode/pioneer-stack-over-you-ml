@@ -6,8 +6,7 @@ FEATURE_COLUMNS = [
     'University',
     'FormalEducation',
     'MajorUndergrad',
-    'YearsProgram',
-    'YearsCodedJobPast'
+    'YearsProgram'
 ]
 
 LABEL_NAME = 'DeveloperType'
