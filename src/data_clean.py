@@ -8,19 +8,28 @@ FEATURE_COLUMNS = [
     'MajorUndergrad',
     'YearsProgram'
 ]
-
 LABEL_NAME = 'DeveloperType'
 
 
 def get_clean_data(raw_data):
     """Get clean dataframe"""
     labeled_data = remove_unlabeled(raw_data)
+    expand_multi_labeled_column(labeled_data)
     (train, test) = split_data_into_test_train(labeled_data)
     return split_data_into_feature_label(train, test)
+
 
 def remove_unlabeled(raw_data):
     """Remove all rows with no label values"""
     return raw_data.dropna(subset=[LABEL_NAME], how='all')
+
+
+def expand_multi_labeled_column(raw_data):
+    """Exapnd rows that have multi labels into new records"""
+    for (idx, row) in raw_data.iterrows():
+        split = [x.strip() for x in row.loc[LABEL_NAME].split(';')]
+        print(split)
+
 
 def split_data_into_test_train(data_frame):
     """Split our results data in test and train"""
