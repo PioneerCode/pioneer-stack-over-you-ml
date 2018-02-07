@@ -29,17 +29,23 @@ def remove_unlabeled(raw_data):
 def expand_multi_labeled_column(raw_data):
     """Exapnd rows that have multi labels into new records"""
     expanded_data = []
-
-    for row in raw_data.iterrows():
-        # Check for delimiter 
+    # print(raw_data.shape)
+    times = 0
+    for (idx, row) in raw_data.iterrows():
+        # Check for delimiter
         split = [x.strip() for x in row.loc[LABEL_NAME].split(';')]
-        if split.count > 1:
-            for label in split.iterrows():
-                new_row = row
-                new_row[LABEL_NAME] = label
-                expanded_data.append(row)
-        else: 
-            expanded_data.append(row)
+        if len(split) is 1:
+            expanded_data.append(row)   
+            #     times = times + 1
+            #     # expand deliminated values into uinque rows
+            #     for label in split:
+            #         new_row = row
+            #         new_row[LABEL_NAME] = label
+            #         expanded_data.append(row)
+        # else:
+            # expanded_data.append(row)
+    
+    print(times)
     print(pd.DataFrame(expanded_data).shape)
 
 
