@@ -1,4 +1,6 @@
 """Transform raw data into clean dataframe."""
+import pandas as pd
+
 FEATURE_COLUMNS = [
     'Professional',
     'ProgramHobby',
@@ -26,9 +28,19 @@ def remove_unlabeled(raw_data):
 
 def expand_multi_labeled_column(raw_data):
     """Exapnd rows that have multi labels into new records"""
-    for (idx, row) in raw_data.iterrows():
+    expanded_data = []
+
+    for row in raw_data.iterrows():
+        # Check for delimiter 
         split = [x.strip() for x in row.loc[LABEL_NAME].split(';')]
-        print(split)
+        if split.count > 1:
+            for label in split.iterrows():
+                new_row = row
+                new_row[LABEL_NAME] = label
+                expanded_data.append(row)
+        else: 
+            expanded_data.append(row)
+    print(pd.DataFrame(expanded_data).shape)
 
 
 def split_data_into_test_train(data_frame):
