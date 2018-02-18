@@ -1,54 +1,56 @@
-#
-#  Archived data (developer_survey_2017.zip) comes directly from Stack Overflow
-#  https://insights.stackoverflow.com/survey/?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2017&utm_content=blog-link&utm_term=data
-#  https://drive.google.com/uc?export=download&id=0B6ZlG_Eygdj-c1kzcmUxN05VUXM
-#
-"""Repository servicing Stack Overflow 2017 developer survey dataset."""
 import os
-import zipfile
-import data_clean
 import pandas as pd
-import tensorflow as tf
+import zipfile
 
 ARCHIVE_PATH = 'data/developer_survey_2017.zip'
 RESULTS_PATH = 'data/unpacked/survey_results_public.csv'
-SCHEMA_PATH = 'data/unpacked/survey_results_schema.csv'
-CLEAN_PATH = 'data/unpacked/cleaned_survey_results_public.csv'
-LABELS = ['Sentosa', 'Versicolor', 'Virginica']
+CACHE_PATH = 'data/cache'
+FEATURE_COLUMNS = [
+    'Professional',
+    'ProgramHobby',
+    'Country',
+    'University',
+    'FormalEducation',
+    'MajorUndergrad',
+    'YearsProgram'
+]
+LABEL_NAME = 'DeveloperType'
 
 
-def get_test_train_data():
-    """Parses the csv file in RESULTS_PATH."""
-
-    # TODO: If we already have a cleaned dataset, lets just return that
-    # Insure files are on disk
-    maybe_unzip()
-    raw_data = None
-
-    # Parse the local CSV file.
-    if not os.path.isfile(CLEAN_PATH):
-        raw_data = pd.read_csv(
-            filepath_or_buffer=RESULTS_PATH,
-            header=0,
-            low_memory=False
-        )
-        output = data_clean.FEATURE_COLUMNS
-        output.append(data_clean.LABEL_NAME)
-        raw_data.loc[:, output].to_csv(CLEAN_PATH, index=False)
-    else:
-        raw_data = pd.read_csv(
-            filepath_or_buffer=CLEAN_PATH,
-            header=0,
-            low_memory=False
-        )
-
-    return data_clean.get_clean_data(raw_data)
-
-
-def maybe_unzip():
-    """Unpack Archive if not already unpacked"""
+def maybe_unpack():
+    # Unpack Archive if not already unpacked
     if os.path.isfile(RESULTS_PATH) is not True:
         zip_ref = zipfile.ZipFile(ARCHIVE_PATH, 'r')
         zip_ref.extractall('data/unpacked')
         zip_ref.close()
+
+def load_data():
+    # Builds column collection
+    names = FEATURE_COLUMNS
+    names.append(LABEL_NAME)
+
+    # load data
+    if not os.path.isfile('data/cache/cached_survey_results_public.csv'):
+        raw_data = pd.read_csv(
+            'data/unpacked/survey_results_public.csv',
+            header=0,
+            low_memory=False
+        )
+        raw_data = raw_data.loc[:, names]
+        raw_data = raw_data.to_csv('data/cache/cached_survey_results_public.csv', index=False)
+    else:
+        raw_data = pd.read_csv('data/cache/cached_survey_results_public.csv', 
+                            low_memory=False)
+
+    return raw_data
+
+def get_data():
+    if not os.path.exists(CACHE_PATH):
+        os.makedirs(CACHE_PATH)
+
+    maybe_unpack()
+    return load_data()
+
+
+get_data()
 
