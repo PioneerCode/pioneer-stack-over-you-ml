@@ -1,9 +1,10 @@
-'''a'''
+'''Label encode all categorical data'''
 import pandas as pd
 from sklearn import preprocessing
 
 
 def remove_multi_label(raw_data, label_name):
+    '''Remove multi_class labels'''
     # Iterate all rows and drop ones with MultiLabel, effectively
     # turning this into a MultiClass problem.
     expanded_data = []
@@ -22,11 +23,11 @@ def remove_unlabeled(raw_data, label_name):
 
 
 def label_encode(df, columns):
+    '''Label encode all categorical data'''
     for col in columns:
         le = preprocessing.LabelEncoder()
         col_values_unique = list(df[col].unique())
         le_fitted = le.fit(col_values_unique)
-
         col_values = list(df[col].values)
         le.classes_
         col_values_transformed = le.transform(col_values)
@@ -35,7 +36,7 @@ def label_encode(df, columns):
 
 
 def get_encoded(raw_data, label_name):
-
+    '''Get dataframe'''
     unlabeled_data = remove_unlabeled(raw_data, label_name)
     single_label_data = remove_multi_label(unlabeled_data, label_name)
     to_be_encoded_cols = single_label_data.columns.values
