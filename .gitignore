@@ -2,6 +2,7 @@
 data/interm
 data/processed
 data/raw/unpacked
+data/feature_categories
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
